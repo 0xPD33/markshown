@@ -132,3 +132,7 @@ A single file. md4c parses markdown into a flat list of blocks; a small render l
 fonts, lays out tables, and draws everything with raylib each frame. A pre-parse pass keeps half-streamed
 markdown sane. Images and mermaid diagrams are rendered/fetched in background processes and swapped in when
 ready, so the 120 fps loop never blocks.
+
+## License
+
+[MIT](LICENSE)
