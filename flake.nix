@@ -1,5 +1,5 @@
 {
-  description = "markshown — a tiny GPU-accelerated live markdown viewer";
+  description = "markshown, a tiny GPU-accelerated live markdown viewer";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

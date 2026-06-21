@@ -4,7 +4,9 @@
 
 **A tiny GPU-accelerated live markdown viewer, for watching markdown _get written_.**
 
-![markshown](screenshot.png)
+![markshown streaming a document in live over stdin](demo.gif)
+
+<sub>a document streaming in live over stdin ([demo.mp4](demo.mp4))</sub>
 
 </div>
 
@@ -14,6 +16,16 @@ something get written*: an LLM, an agent, a build log. Half-written markdown sti
 is always framed in view, and freshly written blocks flash green.
 
 It's one file: `markshown.c`, ~1300 lines.
+
+## What it renders
+
+Callouts, syntax-highlighted code, column-aligned tables, task lists, and more, all on the GPU:
+
+![rendered markdown: callout, code highlighting, aligned table, task list](screenshot.png)
+
+The bundled `example.md` is a self-contained test document that exercises the renderer:
+
+![example.md rendered](example.png)
 
 ## Quick start
 

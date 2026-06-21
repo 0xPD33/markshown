@@ -1,4 +1,4 @@
-// markshown.c — a tiny GPU-accelerated live markdown viewer.
+// markshown.c: a tiny GPU-accelerated live markdown viewer.
 // raylib (GPU + text) + md4c (parse). Watches a file via inotify and hot-reloads.
 //
 //   nix shell nixpkgs#raylib nixpkgs#md4c
@@ -175,7 +175,7 @@ static void freedoc(Doc *d) {
 }
 
 // ── md4c callbacks ──────────────────────────────────────────────────────────
-// raw copy of a link href. ponytail: doesn't decode &amp; etc — fine for real
+// raw copy of a link href. ponytail: doesn't decode &amp; etc, fine for real
 // URLs in markdown; walk md4c substrings only if a link ever comes through wrong.
 static char *href_dup(const MD_ATTRIBUTE *a) {
     char *s = malloc(a->size + 1);
@@ -323,7 +323,7 @@ static int cb_text(MD_TEXTTYPE tt, const MD_CHAR *txt, MD_SIZE sz, void *u) {
     if (d->skip || d->in_img) return 0;   // skip image alt text
     if (d->in_code) { addcode(d, txt, sz); return 0; }   // also collects block HTML (in_code set on MD_BLOCK_HTML)
     if (d->li_pending) newblock(d, B_P);   // tight list items have no <p> wrapper; open the block now
-    if (d->callout_scan && d->quote > 0 && tt == MD_TEXT_NORMAL) {  // first text of a blockquote — is it a callout?
+    if (d->callout_scan && d->quote > 0 && tt == MD_TEXT_NORMAL) {  // first text of a blockquote: is it a callout?
         d->callout_scan = 0;
         int ct = match_callout(txt, sz);
         if (ct) {
@@ -925,7 +925,7 @@ static char *slurp(const char *path, size_t *len) {
 }
 
 // flip a task checkbox in the source file; inotify then reloads + re-renders us.
-// ponytail: rewrites the whole file — markdown is small, no atomic temp+rename.
+// ponytail: rewrites the whole file; markdown is small, no atomic temp+rename.
 static void toggle_check(const char *path, size_t off) {
     size_t len; char *src = slurp(path, &len);
     if (!src) return;
@@ -1009,7 +1009,7 @@ int main(int argc, char **argv) {
     // no FLAG_MSAA_4X_HINT: under raylib 6.0 + HiDPI Wayland its MSAA resolve mis-blits a
     // logical-sized region on content-heavy frames → black screen. Text/shape edges stay clean enough.
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
-    char title[4200]; snprintf(title, sizeof title, "markshown — %s", bname);
+    char title[4200]; snprintf(title, sizeof title, "markshown - %s", bname);
     InitWindow(1000, 820, title);
     SetTargetFPS(120);
 
@@ -1143,7 +1143,7 @@ int main(int argc, char **argv) {
         content = render(&doc, (float)GetScreenWidth(), base);
 
         // auto jump-to-change: while following (not manually scrolled), smooth-scroll to frame the
-        // newest changed block ~1/3 down — so we're always where the last edit/append landed.
+        // newest changed block ~1/3 down, so we're always where the last edit/append landed.
         // (only when the doc is taller than the screen; if it all fits, the change is already visible.)
         if (follow && content > vh && g_change_at > change_seen && g_change_y >= 0) {
             change_seen = g_change_at;
